@@ -24,8 +24,8 @@ def get_solver(day_folder, part: int) -> Callable[[io.StringIO], int]:
     raise ValueError(f"Invalid part {part}")
 
 
-def main(day: int, test: bool, part: int):
-    day_folder = f"day{day}"
+def main(year: int, day: int, test: bool, part: int):
+    day_folder = f"year{year}\\day{day}"
     if test:
         input_file = "test_input.txt"
     else:
@@ -40,8 +40,9 @@ def main(day: int, test: bool, part: int):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument("year", type=int)
     parser.add_argument("day", type=int)
     parser.add_argument("test", type=int)
     parser.add_argument("part", type=int)
     args = parser.parse_args()
-    main(args.day, bool(args.test), args.part)
+    main(args.year, args.day, bool(args.test), args.part)
