@@ -34,5 +34,32 @@ def get_answer_to_part_1(input_stream: io.StringIO) -> int:
     return invalid_id_sum
 
 
+def id_is_valid_2(id: int) -> bool:
+    id_as_str = str(id)
+    for slice_len in range(1, len(id_as_str)):
+        slice = id_as_str[:slice_len]
+        if len(id_as_str.replace(slice, "")) == 0:
+            return False
+    return True
+
+
+assert not id_is_valid_2(55)
+assert not id_is_valid_2(6464)
+assert not id_is_valid_2(123123)
+assert id_is_valid_2(101)
+assert id_is_valid_2(7)
+assert id_is_valid_2(123451234)
+
+
 def get_answer_to_part_2(input_stream: io.StringIO) -> int:
-    pass
+    whole_input = input_stream.read()
+    cleaned_input = whole_input.replace("\n", "")
+    invalid_id_sum = 0
+    for input_range in cleaned_input.split(","):
+        raw_lower, raw_upper = input_range.split("-")
+        lower, upper = int(raw_lower), int(raw_upper)
+        for id_to_check in range(lower, upper + 1):
+            if id_is_valid_2(id_to_check):
+                continue
+            invalid_id_sum += id_to_check
+    return invalid_id_sum
