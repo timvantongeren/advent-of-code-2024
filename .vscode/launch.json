@@ -8,9 +8,9 @@
       "name": "Python Debugger: Current File",
       "type": "debugpy",
       "request": "launch",
-      "program": "${file}",
+      "program": "run_solution.py",
       "console": "integratedTerminal",
-      "args": ["23", "1", "1"]
+      "args": ["2025", "4", "1", "1"]
     }
   ]
 }
