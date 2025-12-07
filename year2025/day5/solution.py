@@ -31,7 +31,7 @@ def get_answer_to_part_1(input_stream: io.StringIO) -> int:
                     break
             else:
                 spoiled_ingredient_count += 1
-    return spoiled_ingredient_count
+    return ingredient_count - spoiled_ingredient_count
 
 
 
