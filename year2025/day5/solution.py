@@ -8,6 +8,9 @@ class IngredientIdRange:
 
     def falls_within_range(self, ingredient_id: int) -> bool:
         return (self.lowerbound <= ingredient_id) and (self.upperbound >= ingredient_id)
+    
+    def fresh_ingredients_in_range(self) -> int:
+        return self.upperbound - self.lowerbound + 1
 
 def get_answer_to_part_1(input_stream: io.StringIO) -> int:
     lines = input_stream.readlines()
@@ -38,4 +41,19 @@ def get_answer_to_part_1(input_stream: io.StringIO) -> int:
 
 
 def get_answer_to_part_2(input_stream: io.StringIO) -> int:
-    pass
+    lines = input_stream.readlines()
+    reading_ranges = True
+    good_ingredient_ranges = []
+    for line in lines:
+        if line == "\n":
+            reading_ranges = False
+        elif reading_ranges:
+            line = line.replace("\n", "")
+            lb, ub = map(int, line.split("-"))
+            good_ingredient_ranges.append(IngredientIdRange(lb, ub))
+    
+    total_fresh_ingredients = 0
+    for ingredient_range in good_ingredient_ranges:
+        total_fresh_ingredients += ingredient_range.fresh_ingredients_in_range()
+    return total_fresh_ingredients
+
